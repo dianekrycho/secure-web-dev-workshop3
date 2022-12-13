@@ -8,31 +8,31 @@ Delete: /locations/:id
  */
 
 const router = require('express').Router()
-const locations = require('./locations.service');
+const locationService = require('./locations.service');
 
 //acceder à la liste de location
 router.get('/locations', async (req, res) => {
-	return res.status(200).send({locations: await locations.findAll()})
+	return res.status(200).send({locationService: await locationService.findAll()})
 })
 
 //acceder à une location à partir de son id
 router.get('/locations/:id', async (req,res) => {
-	res.status(200).send({location: await locations.query_id(req.params.id)})
+	res.status(200).send({location: await locationService.query_id(req.params.id)})
 })
 
-// nouvelle localisation POST
+// nouvelle localisation
 router.post('/locations', async (req,res) => {
-	res.status(200).send({location: await locations.add_loc(req.body)})
+	res.status(200).send({location: await locationService.add_loc(req.body)})
 })
-// modifier une localisation à partir de son id : PUT /locations/:id
-/*router.put('/parkings/:id', async (req,res) => {
-	res.status(200).send
-})
- */
 
-// supprimer une localisation : DELETE /locations
-router.delete('/parkings/:id', async (req,res) => {
-	res.status(200).send(await locations.delete_id(req.params.id))
+// modifier une localisation à partir de son id
+router.patch('/locations/:id', async (req,res) => {
+	res.status(200).send({location: await locationService.modify_loc(req.body)})
+})
+
+// supprimer une localisation
+router.delete('/locations/:id', async (req,res) => {
+	res.status(200).send(await locationService.delete_id(req.params.id))
 })
 
 module.exports = router

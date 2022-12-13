@@ -80,4 +80,29 @@ describe('Location add_loc(loc)) ', ()=> {
 
         expect(await locationService.add_loc(mockLocation)).toEqual(mockLocation)
     })
+    it('Should add a location ', async () => {
+        jest.resetAllMocks()
+        const mockLocation = null
+
+        expect(await locationService.add_loc(mockLocation)).rejects.toThrow()
+    })
+})
+
+describe('Location modify_loc(body) ', ()=> {
+    it('Should modify a location ', async () => {
+        const mockLocation = {
+            _id: ' ',
+            filmName: ''
+        }
+        Location.findById.mockResolvedValue(mockLocation)
+        expect(await locationService.modify_loc(mockLocation)).toEqual("modifié" + mockLocation)
+        expect(Location.findByIdAndUpdate).toHaveBeenCalledTimes(1)
+    })
+    it('Should delete a location ', async () => {
+        jest.resetAllMocks()
+        const mockLocation = null
+        Location.findById.mockResolvedValue(mockLocation)
+        expect(await locationService.modify_loc(' ')).rejects
+        expect(Location.findByIdAndUpdate).toHaveBeenCalledTimes(1)
+    })
 })

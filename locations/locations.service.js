@@ -23,3 +23,9 @@ async function add_loc(loc){
 	return location.save()
 }
 module.exports.add_loc = add_loc
+
+async function modify_loc(body){
+	await Location.findByIdAndUpdate({ _id: body._id},body);
+	return ("modifié" + body)
+}
+module.exports.modify_loc = modify_loc
