@@ -2,19 +2,15 @@
 let Location = require('./locations.model');
 
 function findAll () {
-	return Location.find({}).limit(20).lean()
+	return Location.find()//.limit(20)
 }
 module.exports.findAll = findAll
 
 async function query_id(id){
-	return (await Location.findById(id).exec())
+	return (await Location.findById(id))
 }
 module.exports.query_id = query_id
 
-async function query_filmName(n){
-	return(await Location.find({filmName : n}).exec())
-}
-module.exports.query_filmName = query_filmName
 
 async function delete_id(id){
 	Location.findByIdAndDelete(id)
@@ -23,7 +19,7 @@ async function delete_id(id){
 module.exports.delete_id = delete_id
 
 async function add_loc(loc){
-	await loc.save()
-	return("Ajoutée")
+	const location = new Location(loc)
+	return location.save()
 }
 module.exports.add_loc = add_loc
