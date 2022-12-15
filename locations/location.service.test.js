@@ -12,9 +12,6 @@ describe(' ', ()=>{
     })
 }) */
 
-beforeEach(()=>{
-    jest.resetAllMocks()
-})
 
 // rajouter limit()
 describe('Location findAll() ', ()=>{
